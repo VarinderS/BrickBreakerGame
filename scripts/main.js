@@ -27,11 +27,11 @@
 	var mousePositionX = 0;
 	var mousePositionY = 0;
 
-	var BRICK_WIDTH = 100;
-	var BRICK_HEIGHT = 50;
+	var BRICK_WIDTH = 80;
+	var BRICK_HEIGHT = 20;
 	var BRICK_GAP = 2;
-	var BRICK_COLUMNS = 8;
-	var BRICK_ROWS = 2;
+	var BRICK_COLUMNS = 10;
+	var BRICK_ROWS = 11;
 
 	var bricksGrid = [];
 
@@ -131,12 +131,11 @@
 
 	function brickReset() {
 		for (var i = 0; i < BRICK_COLUMNS * BRICK_ROWS; i++) {
-			// if (Math.random() < 0.5) {
-			// 	bricksGrid.push(true);
-			// } else {
-			// 	bricksGrid.push(false);
-			// }
-			bricksGrid.push(true);
+			if (Math.random() < 0.5) {
+				bricksGrid.push(true);
+			} else {
+				bricksGrid.push(false);
+			}
 		};
 	}
 
@@ -150,8 +149,8 @@
 		drawRect(paddleTopLeftX,paddleTopLeftY, PADDLE_WIDTH,PADDLE_HEIGHT, "white");
 		drawBricks();
 
-		var mouseBrickColumn = mousePositionX / BRICK_WIDTH;
-		var mouseBrickRow = mousePositionY / BRICK_HEIGHT;
+		var mouseBrickColumn = Math.floor(mousePositionX / BRICK_WIDTH);
+		var mouseBrickRow = Math.floor(mousePositionY / BRICK_HEIGHT);
 
 		drawText(mouseBrickColumn + "," + mouseBrickRow, mousePositionX,mousePositionY, "yellow");
 	}
