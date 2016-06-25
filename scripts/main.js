@@ -130,7 +130,7 @@
 
 
 	function brickReset() {
-		for (var i = 0; i < BRICK_COLUMNS; i++) {
+		for (var i = 0; i < BRICK_COLUMNS * BRICK_ROWS; i++) {
 			// if (Math.random() < 0.5) {
 			// 	bricksGrid.push(true);
 			// } else {
@@ -162,7 +162,9 @@
 
 			for (var eachColumn = 0; eachColumn < BRICK_COLUMNS; eachColumn++) {
 
-				if (bricksGrid[eachColumn]) {
+				var arrayIndex = (BRICK_COLUMNS * eachRow) + eachColumn;
+
+				if (bricksGrid[arrayIndex]) {
 
 					drawRect(BRICK_WIDTH*eachColumn,BRICK_HEIGHT*eachRow, BRICK_WIDTH-BRICK_GAP,BRICK_HEIGHT-BRICK_GAP, "blue");
 				}
