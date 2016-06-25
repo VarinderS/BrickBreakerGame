@@ -13,12 +13,12 @@
 	var ballX = 30;
 	var ballY = 30;
 
-	var ballSpeedX = 20;
-	var ballSpeedY = 30;
+	var ballSpeedX = 10;
+	var ballSpeedY = 10;
 
 
-	var PADDLE_WIDTH = 100;
-	var PADDLE_HEIGHT = 10;
+	var PADDLE_WIDTH = 200;
+	var PADDLE_HEIGHT = 20;
 	var PADDLE_DISTANCE_FROM_EDGE = 60;
 
 	var paddleTopLeftX = 30;
@@ -78,9 +78,42 @@
 
 		if (ballY > canvas.height) { // far bottom
 
+			ballReset();
+			// ballSpeedY = ballSpeedY * -1;
+		}
+
+		var paddleTopEdgeY = canvas.height - PADDLE_DISTANCE_FROM_EDGE;
+		var paddleBottomEdgeY = paddleTopEdgeY + PADDLE_HEIGHT;
+
+		var paddleLeftEdgeX = paddleTopLeftX;
+		var paddleRightEdgeX = paddleLeftEdgeX + PADDLE_WIDTH;
+
+		if (ballX > paddleLeftEdgeX &&
+			ballX < paddleRightEdgeX &&
+			ballY > paddleTopEdgeY &&
+			ballY < paddleBottomEdgeY) {
+
 			ballSpeedY = ballSpeedY * -1;
+
+			var centerOfPaddle = PADDLE_WIDTH / 2;
+			var distanceFromCenter = ballX - centerOfPaddle;
+
+			ballSpeedX = distanceFromCenter * 0.07;
 		}
 	}
+
+
+	/**
+	 * reset ball's position
+	 */
+	function ballReset() {
+		ballX = 30;
+		ballY = 30;
+
+		ballSpeedX = 10;
+		ballSpeedY = 10;		
+	}
+
 
 	/**
 	 * draws all elements on canvas
