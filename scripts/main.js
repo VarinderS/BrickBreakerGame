@@ -27,6 +27,14 @@
 	var mousePositionX = 0;
 	var mousePositionY = 0;
 
+	var BRICK_WIDTH = 100;
+	var BRICK_HEIGHT = 50;
+	var BRICK_COUNT = 8;
+
+	var bricksGrid = [];
+
+	brickReset();
+
 	setInterval(updateAll, 1000/GAME_FRAME_RATE);
 
 	canvas.addEventListener("mousemove", onMouseMove);
@@ -119,6 +127,17 @@
 	}
 
 
+	function brickReset() {
+		for (var i = 0; i < BRICK_COUNT; i++) {
+			if (Math.random() < 0.5) {
+				bricksGrid.push(true);
+			} else {
+				bricksGrid.push(false);
+			}
+		};
+	}
+
+
 	/**
 	 * draws all elements on canvas
 	 */
@@ -127,6 +146,18 @@
 		drawCircle(ballX, ballY, ballRadius, "white");
 		drawRect(paddleTopLeftX,paddleTopLeftY, PADDLE_WIDTH,PADDLE_HEIGHT, "white");
 		drawText(mousePositionX + "," + mousePositionY, mousePositionX,mousePositionY, "yellow");
+		drawBricks();
+	}
+
+	function drawBricks() {
+
+		for (var i = 0; i < bricksGrid.length; i++) {
+
+			if (bricksGrid[i]) {
+
+				drawRect(BRICK_WIDTH*i,0, BRICK_WIDTH-2,BRICK_HEIGHT, "blue");
+			}
+		};
 	}
 
 	/**
