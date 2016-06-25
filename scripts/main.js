@@ -9,7 +9,7 @@
 
 	var GAME_FRAME_RATE = 30;
 
-	var ballRadius = 10;
+	var ballRadius = 5;
 	var ballX = 30;
 	var ballY = 30;
 
@@ -18,11 +18,14 @@
 
 
 	var PADDLE_WIDTH = 200;
-	var PADDLE_HEIGHT = 20;
+	var PADDLE_HEIGHT = 10;
 	var PADDLE_DISTANCE_FROM_EDGE = 60;
 
 	var paddleTopLeftX = 30;
 	var paddleTopLeftY = canvas.height - (PADDLE_DISTANCE_FROM_EDGE + PADDLE_HEIGHT);
+
+	var mousePositionX = 0;
+	var mousePositionY = 0;
 
 	setInterval(updateAll, 1000/GAME_FRAME_RATE);
 
@@ -35,8 +38,8 @@
 		var root = document.documentElement;
 
 
-		var mousePositionX = evt.clientX - (rect.left + root.scrollLeft);
-		var mousePositionY = evt.clientY - (rect.top + root.scrollTop);
+		mousePositionX = evt.clientX - (rect.left + root.scrollLeft);
+		mousePositionY = evt.clientY - (rect.top + root.scrollTop);
 
 		paddleTopLeftX = mousePositionX - (PADDLE_WIDTH / 2);
 		// paddleTopLeftY = mousePositionY;
@@ -98,7 +101,7 @@
 			var centerOfPaddle = PADDLE_WIDTH / 2;
 			var distanceFromCenter = ballX - centerOfPaddle;
 
-			ballSpeedX = distanceFromCenter * 0.07;
+			ballSpeedX = distanceFromCenter * 0.06;
 		}
 	}
 
@@ -122,6 +125,7 @@
 		drawRect(0,0, canvas.width,canvas.height, "black");
 		drawCircle(ballX, ballY, ballRadius, "white");
 		drawRect(paddleTopLeftX,paddleTopLeftY, PADDLE_WIDTH,PADDLE_HEIGHT, "white");
+		drawText(mousePositionX + "," + mousePositionY, mousePositionX,mousePositionY, "yellow");
 	}
 
 	/**
@@ -151,5 +155,10 @@
 		context.beginPath();
 		context.arc(centerX,centerY, radius, 0,Math.PI*2, true);
 		context.fill();		
+	}
+
+	function drawText(words, positionX,positionY, fillColor) {
+		context.fillStyle = fillColor;
+		context.fillText(words, positionX,positionY);
 	}
 })();
