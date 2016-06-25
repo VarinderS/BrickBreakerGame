@@ -2,8 +2,8 @@
 
 	var canvas = document.getElementById("gameCanvas");
 
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
+	canvas.width = 800; //window.innerWidth;
+	canvas.height = 600; //window.innerHeight;
 
 	var context = canvas.getContext("2d");
 
@@ -19,7 +19,7 @@
 
 	var PADDLE_WIDTH = 200;
 	var PADDLE_HEIGHT = 10;
-	var PADDLE_DISTANCE_FROM_EDGE = 60;
+	var PADDLE_DISTANCE_FROM_EDGE = 55;
 
 	var paddleTopLeftX = 30;
 	var paddleTopLeftY = canvas.height - (PADDLE_DISTANCE_FROM_EDGE + PADDLE_HEIGHT);
@@ -91,6 +91,7 @@
 		var paddleLeftEdgeX = paddleTopLeftX;
 		var paddleRightEdgeX = paddleLeftEdgeX + PADDLE_WIDTH;
 
+			
 		if (ballX > paddleLeftEdgeX &&
 			ballX < paddleRightEdgeX &&
 			ballY > paddleTopEdgeY &&
