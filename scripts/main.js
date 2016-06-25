@@ -16,6 +16,14 @@
 	var ballSpeedX = 20;
 	var ballSpeedY = 30;
 
+
+	var PADDLE_WIDTH = 100;
+	var PADDLE_HEIGHT = 10;
+	var PADDLE_DISTANCE_FROM_EDGE = 60;
+
+	var paddleTopLeftX = 30;
+	var paddleTopLeftY = canvas.height - (PADDLE_DISTANCE_FROM_EDGE + PADDLE_HEIGHT);
+
 	setInterval(updateAll, 1000/GAME_FRAME_RATE);
 
 	/**
@@ -64,6 +72,7 @@
 	function drawAll() {
 		drawRect(0,0, canvas.width,canvas.height, "black");
 		drawCircle(ballX, ballY, ballRadius, "white");
+		drawRect(paddleTopLeftX,paddleTopLeftY, PADDLE_WIDTH,PADDLE_HEIGHT, "white");
 	}
 
 	/**
