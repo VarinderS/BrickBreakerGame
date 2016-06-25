@@ -95,6 +95,23 @@
 			// ballSpeedY = ballSpeedY * -1;
 		}
 
+		var ballBrickColumn = Math.floor(ballX / BRICK_WIDTH);
+		var ballBrickRow = Math.floor(ballY / BRICK_HEIGHT);
+		var brickIndexUnderBall = rowColumnToArrayIndex(ballBrickColumn, ballBrickRow);
+
+		if (ballBrickColumn >= 0 && ballBrickColumn < BRICK_COLUMNS &&
+			ballBrickRow >=0 && ballBrickRow < BRICK_ROWS) {
+
+			if (bricksGrid[brickIndexUnderBall]) {
+
+				bricksGrid[brickIndexUnderBall] = false;
+
+				ballSpeedY = ballSpeedY * -1;
+			}
+		}
+
+
+
 		var paddleTopEdgeY = canvas.height - PADDLE_DISTANCE_FROM_EDGE;
 		var paddleBottomEdgeY = paddleTopEdgeY + PADDLE_HEIGHT;
 
@@ -131,11 +148,12 @@
 
 	function brickReset() {
 		for (var i = 0; i < BRICK_COLUMNS * BRICK_ROWS; i++) {
-			if (Math.random() < 0.5) {
-				bricksGrid.push(true);
-			} else {
-				bricksGrid.push(false);
-			}
+			// if (Math.random() < 0.5) {
+			// 	bricksGrid.push(true);
+			// } else {
+			// 	bricksGrid.push(false);
+			// }
+			bricksGrid.push(true);
 		};
 	}
 
@@ -151,8 +169,14 @@
 
 		var mouseBrickColumn = Math.floor(mousePositionX / BRICK_WIDTH);
 		var mouseBrickRow = Math.floor(mousePositionY / BRICK_HEIGHT);
+		var brickIndexUnderMouse = rowColumnToArrayIndex(mouseBrickColumn, mouseBrickRow);
 
-		drawText(mouseBrickColumn + "," + mouseBrickRow, mousePositionX,mousePositionY, "yellow");
+		// if (brickIndexUnderMouse >= 0 && brickIndexUnderMouse < (BRICK_COLUMNS * BRICK_ROWS)) {
+
+		// 	bricksGrid[brickIndexUnderMouse] = false;
+		// }
+
+		drawText(mouseBrickColumn + "," + mouseBrickRow + ":" + brickIndexUnderMouse, mousePositionX,mousePositionY, "yellow");
 	}
 
 	function drawBricks() {
@@ -161,7 +185,7 @@
 
 			for (var eachColumn = 0; eachColumn < BRICK_COLUMNS; eachColumn++) {
 
-				var arrayIndex = (BRICK_COLUMNS * eachRow) + eachColumn;
+				var arrayIndex = rowColumnToArrayIndex(eachColumn, eachRow);
 
 				if (bricksGrid[arrayIndex]) {
 
@@ -169,6 +193,11 @@
 				}
 			};
 		};
+	}
+
+
+	function rowColumnToArrayIndex(column, row) {
+		return column + (BRICK_COLUMNS * row);
 	}
 
 	/**
