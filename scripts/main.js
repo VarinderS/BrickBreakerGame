@@ -26,6 +26,22 @@
 
 	setInterval(updateAll, 1000/GAME_FRAME_RATE);
 
+	canvas.addEventListener("mousemove", onMouseMove);
+
+
+	function onMouseMove(evt) {
+
+		var rect = canvas.getBoundingClientRect();
+		var root = document.documentElement;
+
+
+		var mousePositionX = evt.clientX - (rect.left + root.scrollLeft);
+		var mousePositionY = evt.clientY - (rect.top + root.scrollTop);
+
+		paddleTopLeftX = mousePositionX - (PADDLE_WIDTH / 2);
+		// paddleTopLeftY = mousePositionY;
+	}
+
 	/**
 	 * update all function, gets called about 30 times a second
 	 */
