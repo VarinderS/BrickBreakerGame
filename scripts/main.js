@@ -29,7 +29,9 @@
 
 	var BRICK_WIDTH = 100;
 	var BRICK_HEIGHT = 50;
-	var BRICK_COUNT = 8;
+	var BRICK_GAP = 2;
+	var BRICK_COLUMNS = 8;
+	var BRICK_ROWS = 2;
 
 	var bricksGrid = [];
 
@@ -128,12 +130,13 @@
 
 
 	function brickReset() {
-		for (var i = 0; i < BRICK_COUNT; i++) {
-			if (Math.random() < 0.5) {
-				bricksGrid.push(true);
-			} else {
-				bricksGrid.push(false);
-			}
+		for (var i = 0; i < BRICK_COLUMNS; i++) {
+			// if (Math.random() < 0.5) {
+			// 	bricksGrid.push(true);
+			// } else {
+			// 	bricksGrid.push(false);
+			// }
+			bricksGrid.push(true);
 		};
 	}
 
@@ -145,18 +148,25 @@
 		drawRect(0,0, canvas.width,canvas.height, "black");
 		drawCircle(ballX, ballY, ballRadius, "white");
 		drawRect(paddleTopLeftX,paddleTopLeftY, PADDLE_WIDTH,PADDLE_HEIGHT, "white");
-		drawText(mousePositionX + "," + mousePositionY, mousePositionX,mousePositionY, "yellow");
 		drawBricks();
+
+		var mouseBrickColumn = mousePositionX / BRICK_WIDTH;
+		var mouseBrickRow = mousePositionY / BRICK_HEIGHT;
+
+		drawText(mouseBrickColumn + "," + mouseBrickRow, mousePositionX,mousePositionY, "yellow");
 	}
 
 	function drawBricks() {
 
-		for (var i = 0; i < bricksGrid.length; i++) {
+		for (var eachRow = 0; eachRow < BRICK_ROWS; eachRow++) {
 
-			if (bricksGrid[i]) {
+			for (var eachColumn = 0; eachColumn < BRICK_COLUMNS; eachColumn++) {
 
-				drawRect(BRICK_WIDTH*i,0, BRICK_WIDTH-2,BRICK_HEIGHT, "blue");
-			}
+				if (bricksGrid[eachColumn]) {
+
+					drawRect(BRICK_WIDTH*eachColumn,BRICK_HEIGHT*eachRow, BRICK_WIDTH-BRICK_GAP,BRICK_HEIGHT-BRICK_GAP, "blue");
+				}
+			};
 		};
 	}
 
